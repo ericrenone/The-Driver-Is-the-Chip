@@ -1,15 +1,19 @@
-# ERIE — TESLA
-## The Driver Is the Chip
+# THE SETTLEMENT GAP
+
+## What BYD's Xuanji, Huawei's Ten Billion Kilometers, Tesla's Supervised Qualifier, and SpaceX's Unnamed Arithmetic Say About the One Hardware Primitive the Global Autonomous Driving Industry Has Not Yet Built
 
 **ERI Labs · Eric Ren · Jersey City, New Jersey · [github.com/ericrenone](https://github.com/ericrenone) · June 4, 2026**
 
 ---
 
 > *"Hardware 3 simply does not have the capability to achieve Unsupervised FSD."*
-> — Elon Musk, April 22, 2026 — seven years after selling the hardware as sufficient
+> — Elon Musk, April 22, 2026
 
-> *"Memory bandwidth is the choke point."*
-> — Elon Musk, Tesla Q1 2026 Earnings Call
+> *"Computing power utilization has doubled."*
+> — BYD, Xuanji A3 launch, May 28, 2026
+
+> *"Autonomous driving is an industry requiring long-term investment."*
+> — Jin Yuzhi, Huawei Intelligent Automotive Solutions, April 24, 2026
 
 > *"The proof holds in exact arithmetic. In finite-precision arithmetic under thermal stress, partial engine failure, and process-variation silicon, it is an approximation of an approximation."*
 > — ERI Labs, The Convergence Oracle, June 4, 2026
@@ -17,259 +21,301 @@
 > *"We had to make several design concessions to move fast."*
 > — Tesla AI hardware team, post-AI5 tape-out, April 15, 2026
 
----
-
-## The Man Who Found the Wrong Contract
-
-On a day in early June 2026, a man named Oliver Abcarius logged into his Tesla account looking for a receipt. He had bought Full Self-Driving for his 2018 Model 3 in August 2019 — paid for it in full, $15,000, on the word of a company that had promised, in a 2016 press release it later quietly deleted, that every car leaving its factory already had "the hardware needed for full self-driving capability at a safety level substantially greater than that of a human driver." Abcarius had been patient. He had waited through promises of imminent autonomy in 2018, 2019, 2020, 2021, 2022, 2023, 2024, and 2025.
-
-What Abcarius found when he tried to pull up his purchase agreement was not a receipt. The link was dead. The original contract — the one that said "Full Self-Driving Capability" with no asterisks, no qualifiers — linked to an invalid page. *Electrek* confirmed the pattern across multiple HW3 owners: Tesla had retroactively modified purchase agreements signed between 2016 and early 2024. The word "Supervised" now appeared in documents where it had never existed. The original contracts were becoming inaccessible at exactly the moment Tesla faced up to $14.5 billion in lawsuits.
-
-But here is the thing about Oliver Abcarius's missing contract. The word that Tesla inserted into it retroactively — **Supervised** — was not a legal invention. It was not a hedge, not a reframe, not a marketing softening of an inconvenient promise. It was something far more specific.
-
-It was a hardware specification.
-
-And the hardware had always known.
+> *"Cooperative perception enabled by V2X communication can significantly improve the perception performance of autonomous vehicles beyond the limited perception ability of individual vehicles."*
+> — V2X-UniPool, arXiv:2506.02580, June 2026
 
 ---
 
-## The Specification That Was Always True
+## The Most Revealing Insurance Policy in Automotive History
 
-On October 19, 2016, Elon Musk stood before cameras and told the world that every Tesla rolling off the line from that day forward had "everything" needed to drive itself. The cameras, the compute power — all of it, present, sufficient, waiting only for software. Over the following nine years, Tesla would collect perhaps $8–10 billion in Full Self-Driving sales on the strength of that claim.
+On May 28, 2026, BYD chairman Wang Chuanfu stood before cameras in Shenzhen and announced that the company would, effective immediately, cover all accident costs for any vehicle operating its God's Eye Urban Navigate-on-Autopilot system. Not liability-capped. Not geofenced. Covered. The company's 7,000-engineer chip team had spent years building the Xuanji A3 — China's first self-developed 4nm automotive-grade driving chip — and now BYD was putting financial liability behind it.
 
-The claim was a bet placed on silicon that could not settle it.
+That same week, Tesla's FSD remained labeled Supervised. Its DMS update logged better eyewear detection. Its Cybercab fleet in Austin stood at approximately 20 vehicles, geofenced, monitored remotely by a fleet operations team whose presence was not publicly disclosed.
 
-In 2019, Tesla froze the specification for Hardware 3. The chip that went into millions of cars from 2019 through 2023 — the chip that Abcarius and hundreds of thousands like him were implicitly buying when they paid for FSD — had 48 GB/s of memory bandwidth. That number was not a minor specification detail. It was an architectural ceiling. Neural networks, unlike the promise attached to them, grow. FSD v12, then v13, then v14 arrived as models ten times larger than what the HW3 pipeline was designed to carry. By 2026, the AI4 chip offered bandwidth eight times that of HW3.
+The contrast is not a story about two companies with different products. It is a story about two companies that have found different answers to the same engineering question — and about the fact that neither answer, looked at closely, is actually an answer.
 
-On April 22, 2026, seven years after the specification freeze, Musk stated the conclusion on an earnings call: "Hardware 3 simply does not have the capability to achieve Unsupervised FSD." He cited memory bandwidth. Not compute. Not cameras. Not software. The data pipe that moves weight matrices from memory to silicon — that is what seven million vehicles were always missing.
+BYD's Full Damage Coverage is a financial claim translated from a hardware confidence claim. It says: *we believe this chip is reliable enough to stake money on.* Tesla's Supervised qualifier is also a financial claim translated from a hardware confidence claim. It says: *we are not yet prepared to stake money on this chip alone.* Both companies are circling the same unanswered question from opposite sides of the same boundary. The question is not about TOPS, or process node, or even memory bandwidth. The question is: **when can a chip certify its own inference before committing to an irrevocable action?**
 
-There is a word for this in engineering: a **specification lock**. It is the moment when an architectural decision calcifies into permanent form, and everything downstream of it is committed to whatever was present in that instant. Tesla's HW3 was a specification lock executed in 2019 on the wrong arithmetic. The "Supervised" qualifier that appeared retroactively in Oliver Abcarius's contract was not Tesla's lawyers inventing a loophole. It was the hardware finally saying, in words, what it had always been saying in silicon.
+Nobody has built that chip. Not BYD. Not Tesla. Not Huawei. Not SpaceX. Not NVIDIA. Not Mobileye.
 
----
-
-## What "Supervised" Actually Means
-
-Consider what Tesla's Full Self-Driving pipeline does, in precise terms, every time a car prepares to merge at 70 miles per hour onto a highway.
-
-The neural network assembles a scene: detected objects, predicted trajectories, road boundaries, the gap in traffic. It assigns a confidence score — a floating-point number, between 0 and 1, computed in FP16 precision on a die whose intermediate arithmetic varies with temperature. When that score crosses 85%, the system commits: the steering wheel turns, the accelerator adjusts, the vehicle crosses into the adjacent lane.
-
-When the score does not cross 85%, the system requests a takeover. A tone sounds. The driver has five seconds.
-
-In that architecture, the driver is not a backup. The driver is not a safety net. The driver is the settlement mechanism — the component that certifies, in biological tissue at 300 milliseconds of reaction time, whether the scene the car has committed to is real. The driver is the part of the system that answers the question: *did the bet converge before the action became irrevocable?*
-
-**"Supervised" is not a descriptor of the driver's role. It is a descriptor of the chip's absence.** The FSD pipeline lacks a component that certifies convergence in silicon before committing to maneuvers that cannot be undone. That component does not exist in HW3. It does not exist in AI4. It has never existed in any hardware Tesla has shipped. The human driver has always been the chip.
-
-Tesla's FSD v14.3.3 introduced improvements to the Driver Monitoring System: better eye gaze tracking, improved eyewear detection, more accurate variable-lighting performance. Read that update log again. Tesla spent engineering resources building a better instrument for measuring whether the human settlement layer is watching the scene the car has committed its inference to. It built a more precise scope to point at the person who is serving as the missing hardware component.
-
-That is what "improving DMS" means, translated into architecture: *we have made the human chip more monitorable.* It is not progress toward autonomy. It is investment in supervision.
+That is the settlement gap.
 
 ---
 
-## The Cybercab and the Architecture It Reveals
+## Seven Chips, One Table, One Axis Nobody Passes
 
-Production of the Tesla Cybercab began at Gigafactory Texas on February 17, 2026. The car has no steering wheel and no pedals. It is, in form, the most explicit statement in automotive history that a human settlement layer is unnecessary.
+The global autonomous vehicle chip race of 2026 is being reported as a compute war. TOPS counts appear in headlines. Process nodes — 4nm, 5nm, 7nm — are invoked as competitive moats. Memory bandwidth, quietly, has become the metric that actually determines commercial deployability. And beneath all three, invisible in every press release, is the axis that determines whether any of it is enough.
 
-The Cybercab runs AI4.
+| Chip | OEM | Node | TOPS (peak) | Bandwidth | Power | ASIL | Convergence-native | Unsupervised at scale |
+|---|---|---|---|---|---|---|---|---|
+| **Xuanji A3** (×3) | BYD | 4 nm | 2,100 | 273 GB/s | ~20% below peers | **D** | No | No — Full Damage Coverage, not oracle |
+| **Shenji NX9031** | NIO | 5 nm | Not disclosed | Not disclosed | Not disclosed | Not disclosed | No | No — world model, fleet learning |
+| **Mach 100** | Li Auto | 5 nm | 1,280 | Not disclosed | Not disclosed | Not disclosed | No | No |
+| **Turing AI** | Xpeng | 7 nm | ~750 | Not disclosed | Not disclosed | Not disclosed | No | No |
+| **Qiankun AI** (Huawei supply) | 25 brands | Not disclosed | Not disclosed | Not disclosed | Not disclosed | Not disclosed | No | L3 highway, Q4 2026 |
+| **AI4 / HW4** | Tesla | 7 nm | 500 | 384 GB/s | ~160 W | Not disclosed | No | ~20 robotaxis, geo-limited |
+| **AI5** (tape-out) | Tesla | 3–4 nm | ~4,000+ | 192 GB LPDDR5X | 700–800 W | Not disclosed | No | 0 in vehicles |
+| **HW3** (abandoned) | Tesla | 14 nm | 72 | 48 GB/s | ~100 W | Not disclosed | No | 0 — retired |
+| **Drive Thor** | NVIDIA | 5 nm | 2,000 | Not disclosed | Not disclosed | Not disclosed | No | No — supply only |
+| **D3** (planned) | SpaceX | Intel 18A | Not disclosed | Not disclosed | Not disclosed | N/A | Announced intent | 0 fabricated |
 
-AI5, which Musk claimed in June 2024 would ship in the second half of 2025, taped out on April 15, 2026 — nearly two years behind schedule. Engineering samples are not expected until late 2026. Volume production is mid-2027 at the earliest. The Cybercab, purpose-built for driverless operation, is launching on the same silicon that currently runs Supervised FSD in the Model Y fleet now operating in Austin, Dallas, and Houston.
+Three facts stand out.
 
-Musk's answer to this gap, offered on the Q1 2026 earnings call: "AI4 is enough to achieve much better than human safety for FSD." AI5 goes to Optimus and supercomputer clusters. Cars get AI4. The Cybercab gets AI4.
+First, BYD's Xuanji A3 at 273 GB/s has already crossed the bandwidth threshold that retired HW3. Tesla abandoned HW3 because its 48 GB/s memory bandwidth — 1/8 of AI4's — could not sustain FSD neural network growth from v12 to v14. BYD's chip ships at a bandwidth that would have cleared that wall by more than five times. China solved Axis 1.
 
-The Cybercab with AI4 and no steering wheel is an architectural declaration: *we believe the human chip is unnecessary.* But the AI4 chip has not changed. No hardware convergence primitive has been added. The confidence score is still a floating-point number that varies with die temperature. The Cybercab's 30-vehicle Texas deployment is a geofenced proof of concept — approximately 20 active units as of May 2026 across three cities — where the settlement loop is closed not by silicon but by a fleet operations team watching remotely. The humans monitoring the fleet are the chip. They have simply moved off the passenger seat and into a control room.
+Second, BYD claims 20% less power consumption per unit of computation than comparable alternatives. IBM's 2026 study found precisely that 20% efficiency improvement produces a 3–5% EV range increase. These numbers are not coincidental; they are the same measurement expressed from different directions, by researchers in different countries, on different timescales. The bandwidth and power efficiency constraints that forced Tesla's hardware evolution are constraints BYD has incorporated into its chip design from the start. China solved Axis 2.
 
-Tesla bypassed NHTSA's standard 2,500-vehicle exemption cap for autonomous deployment by self-certifying its compliance path. What exactly Tesla has certified — and whether AI4 satisfies the architectural requirements that "Unsupervised" implies — is not a regulatory determination. It is an engineering question. The engineering question is the same one it has always been.
+Third: not one chip in this table is convergence-native. BYD's ASIL-D certification — the highest automotive functional safety grade, which specifies that a chip's failure behavior is deterministic and bounded — is the closest any production chip has come to hardware-certified convergence. It is not the same thing. ASIL-D certifies that the hardware's failure mode is safe. It does not certify that the hardware's inference has converged before an irrevocable action commits. **ASIL-D is a safety boundary. A convergence oracle is a settlement signal.** These are architecturally different claims. BYD's insurance policy rests on the former. The settlement gap remains in the latter.
+
+Nobody has solved Axis 3.
 
 ---
 
-## The Three Locks
+## Huawei's Bet and the Philosophy Behind It
 
-The Tesla hardware story has a structure that repeats at every generation, like a recurring decimal that no one has yet figured out how to terminate.
+Eighteen billion yuan — approximately $2.6 billion — is what Huawei's Intelligent Automotive Solutions division is spending on autonomous driving in 2026 alone. Jin Yuzhi, the division's CEO, said at the April 2026 Beijing Auto Show that this figure exceeds the combined annual investment of all other major autonomous driving solution providers. By May 2026, Huawei's Qiankun ADS platform had accumulated over 10 billion kilometers of real-world assisted driving data across 25 partner brands, installed in more than 50 vehicle models. The number is staggering. For comparison, Tesla has cited approximately 10 billion real-world *miles* in global training data — roughly 16 billion kilometers. Huawei, operating exclusively in China and a handful of partner markets, has reached the same training data scale in a fraction of the deployment window.
 
-**Lock One: HW3, frozen 2019.** The specification that went into millions of vehicles was frozen at 48 GB/s bandwidth. The neural network that would eventually need to run on those vehicles was not yet written. Seven years and $15,000 per vehicle later, the lock was named in public, on an earnings call, in front of institutional investors. Multiple class action suits followed in the US, China, Australia, and Europe. One Tesla owner in Florida had already won $10,000 in small claims court on a judge's ruling that Tesla's original promise constituted false advertising. Tesla's proposed solution — microfactories in major cities to retrofit HW3 vehicles — has no concrete timeline, no cost structure, and no eligibility framework.
+But here is the thing Huawei said, quietly, that matters more than the kilometer count: **Huawei explicitly rejected the VLA path.**
 
-**Lock Two: AI5, conceded April 2026.** The chip that was meant to be the architectural advance arrived 45 days early at Samsung's tape-out line with what the Tesla AI hardware team described, in a post on X, as "several design concessions to move fast." The arithmetic substrate of AI5 is not publicly disclosed. What is known: it runs at 700–800 watts. A car's thermal management system cannot absorb 700–800 watts from a single chip. AI5 goes to robots and supercomputers. The car fleet gets AI4.
+Vision-Language-Action models — the approach pursued by Li Auto, Xpeng, Deeproute.ai, Xiaomi, and much of the Chinese AD research community — treat autonomous driving as an end-to-end mapping problem: raw sensor input goes in, action comes out, and the network learns the intermediate representation from data. It is, in simplified terms, the Chinese parallel to Tesla's end-to-end neural network architecture for FSD. Richard Jin, CEO of Huawei's automotive division, was direct: "Companies on the VLA path think that language models like those developed by OpenAI have already mastered vast online information. Huawei won't follow that path."
 
-**Lock Three: D3, closing now.** SpaceX's S-1 prospectus, filed with the SEC on May 20, 2026 — the document that launched the roadshow for what would be the largest IPO in history — names a custom orbital AI chip called the D3. Manufacturing substrate: Intel's 18A process. Arithmetic substrate: undisclosed. Intel's standard cell library is optimized for FP16 and BF16 floating-point matmul. That is the data center workload that justifies Intel's foundry capital expenditure. Shift-accumulate arithmetic — the lower-power substrate that the orbital power budget requires — is not in Intel's optimization target. If SpaceX's orbital chip team does not explicitly specify a convergence-native arithmetic substrate in the D3 design brief, the Intel 18A process will deliver a high-performance FP16 inference chip. That chip will fail the orbital power budget for the same reason HW3 failed the bandwidth axis: the specification was frozen on the wrong arithmetic before the constraint was fully understood.
+Huawei's alternative — the WEWA framework — combines a structured world model with a separate action-planning layer. It is, architecturally, a separation of the col(F)/ker(F) boundary into an explicit two-stage structure: first, build a certified representation of the scene (the world model); second, plan actions against that representation. The world model is not the action. The action is not the world model. The two steps are separated, and the boundary between them is where a convergence signal would live.
 
-The SpaceX IPO road show opened June 4, 2026. Pricing: June 11. Trading: June 12. A company raising $75 billion in equity is not in a research phase. The D3 specification window is not eight months away. It is concurrent with the capital raise.
+Huawei's architecture is not a convergence oracle. It is, however, the only architecture among the major global players that has explicitly structured its pipeline to *make room* for one.
 
 ---
 
-## The Three Hardware Generations as Evidence
+## The V2X Divergence: Two Philosophies of the Same Bet
 
-| Hardware | Bandwidth / Power | Deployed | Convergence primitive | Outcome |
+On May 28, 2026, the same day BYD unveiled the Xuanji A3, a small item appeared in an EV industry newsletter: Polestar and Clever had launched Denmark's first full V2X pilot using the Polestar 4. The pilot was one sentence in a press release. It was, architecturally, one of the most important automotive announcements of the month.
+
+ERIE — VISION established the Fisher-information-optimal partition between individual sensing capacity and collective ensemble capacity at approximately **62% individual, 38% collective**. ERIE — TESLA showed that Tesla's perception architecture allocates approximately 100% to individual: no real-time V2X, no Cooperative Perception Messages at 30ms latency, no Collective Awareness Messages from neighboring vehicles. Fleet learning is collective at training timescale — hours to days from incident to model update — not inference timescale.
+
+The Chinese approach is structurally different. China's national V2X infrastructure program — C-V2X, operating in the 5.9 GHz band with direct vehicle-to-vehicle communication — is being deployed as national policy, not product feature. Multiple Chinese OEMs have integrated cooperative perception into their ADAS stacks. The V2X-UniPool framework (arXiv:2506.02580, June 2026) demonstrates the research frontier: a unified multimodal V2X perception system using dual-query Retrieval-Augmented Generation that reduces V2X transmission cost by over 99.9% compared to prior cooperative perception methods, while enabling even zero-shot vehicle-side models to achieve state-of-the-art motion planning through V2X-extended scene context.
+
+That 99.9% transmission cost reduction solves the bandwidth problem for collective perception that made V2X impractical at scale. V2X-UniPool extends col(F) in real time — seeing around the occluded corner, through the truck, across the intersection — at near-zero transmission overhead. It is the research counterpart to the φ-equilibrium's 38% collective allocation, implemented in a framework that China's national infrastructure can actually run.
+
+| Perception Architecture | Allocation | Latency | Training scale | Inference scale |
 |---|---|---|---|---|
-| HW3 (2019) | 48 GB/s, ~100 W | Millions of vehicles | None | Abandoned. Cannot achieve Unsupervised FSD. Class action litigation in four jurisdictions. |
-| AI4 (2023) | 384 GB/s, ~160 W | Millions of vehicles | None (software only) | Supervised qualifier retained. ~20 active unsupervised robotaxis, geofenced. |
-| AI5 (April 2026) | 192 GB LPDDR5X, ~700–800 W | Zero vehicles | Not disclosed | Redirected to Optimus and supercomputers. Not in vehicles. |
-| AI4+ / AI4.1 (planned) | 64 GB, doubled RAM | Zero | None | Bridge chip. Same convergence gap. |
-| D3 (planned, Intel 18A) | Not disclosed | Zero | Announced intent | Specification window closing. |
+| **Tesla FSD** | ~100% individual | Frame-level | Fleet → cloud → model (hours/days) | Ego-only, real-time |
+| **Huawei Qiankun** | High individual, collective via infrastructure | Frame-level + V2I | 10B km accumulated | Partially collective via C-V2X |
+| **V2X-UniPool** | Collective-first | 30ms CPM | Real-world cooperative dataset | Extends zero-shot ego models to SOTA |
+| **φ-equilibrium optimum** | 62% individual, 38% collective | 30ms | Both | Both, fused |
+| **D3 orbital** | 100% individual (forced by physics) | None available | Ground control at light-minutes | Ego-only, irrevocable |
 
-The pattern is not a sequence of failures. It is a single structural absence, repeating across hardware generations at automotive timescale, and now preparing to repeat at orbital timescale.
+Tesla's 100% individual allocation is not a philosophy. It is a constraint that has become a philosophy. The sensors, the compute, and the neural network are all ego-vehicle properties. The fleet learning data is enormous, but it arrives at inference time through a model trained on the past, not a signal received from the present. The Cybercab operating in Austin is not receiving what the vehicle ahead of it knows. It is inferring, from its own cameras, what it thinks the vehicle ahead might do.
 
-The absence has a name: there is no component in any Tesla hardware generation, past or present, that certifies in silicon — before a maneuver commits — that the guidance solution has converged. The confidence score is a floating-point output of a floating-point network. It is, in the precise language of the prior ERI corpus, "an approximation of an approximation." The Cybercab's passenger trusts a number whose precision varies with the temperature of the die they are sitting above.
-
----
-
-## The Control Authority Signature, Repeated
-
-On May 22, 2026, Starship Flight 12 launched from Boca Chica. Booster 19 executed the flip maneuver — the attitude command, the high-level intention — correctly. Then multiple Raptor 3 engines failed to sequence simultaneously on the boostback burn. The booster came down hard in the Gulf of Mexico at approximately 1,500 km/h. The FAA declared a mishap on May 27, five days before the SpaceX IPO roadshow opened.
-
-The failure pattern: correct high-level command, failed low-level sequencing.
-
-Compare it to what the Salesforce CEO experienced during an Optimus demonstration in September 2025: a simple kitchen fetch task required multiple prompts. Optimus understood the request. The autonomous sequencing — coordinate the arm, execute the grasp, return — required human teleoperation to complete. Tesla's autonomy metrics for Optimus remain undisclosed.
-
-Compare it to every FSD intervention: the neural network assembled a scene, assigned a confidence score below 85%, and the human — the settlement layer — took over.
-
-The same failure signature appears in a humanoid robot, a reusable orbital booster, and a family of self-driving car software, across three different engineering programs, within a single twelve-month period. In each case: the high-level bet is placed correctly. The low-level settlement fails. In each case: the resolution is human supervision — a teleoperation operator, a ground control team, a driver with their hands on a wheel that may or may not exist.
+The Chinese national V2X deployment is building the infrastructure that makes real-time collective perception possible at the 38% allocation the Fisher-information optimum requires. It will take years to reach the penetration threshold where V2X transforms the safety profile. At 25% market penetration, published research transitions risk from "serious traffic accidents" to "residual hypothetical risk." China is building toward that threshold as a national infrastructure program. Tesla is not building toward it at all.
 
 ---
 
-## The φ-Equilibrium: What Tesla's 100% Individual Allocation Costs
+## The Regulatory Divergence: When "L3" and "Supervised" Are the Same Hardware Question Answered Differently
 
-ERIE — VISION established the Fisher-information-optimal partition between individual sensing capacity and collective ensemble capacity at approximately **62% individual, 38% collective** — the golden-ratio operating point at which no single observer's blind spots can be resolved alone, and at which the collective model is fed inputs sharp enough to be worth fusing.
+China's Ministry of Industry and Information Technology, alongside seven other ministries, issued its Work Plan for Stabilizing Automobile Industry Growth in September 2025. The plan explicitly includes "conditionally approving production access for Level 3 models." Huawei ADS 4 is targeting commercial highway L3 in Q4 2026. BYD's Xuanji A3 natively supports L3 and L4 in silicon. Multiple OEMs — ZEEKR, Changan, Chery — have announced L3 targets for 2026 or 2027. China's regulatory framework is preparing to certify commercial L3 deployment at scale.
 
-Tesla's perception architecture allocates approximately 100% to individual. There is no real-time V2X — no Cooperative Perception Messages transmitted at 30ms latency, no Collective Awareness Messages received from neighboring vehicles, no infrastructure-shared field of view around corners. Fleet learning is collective, but it is collective at training timescale: hours to days for a challenging scenario to travel from an individual vehicle to consolidated training data to a distributed model update. That is ensemble perception of the past.
+In the United States, Tesla's FSD remains classified as SAE Level 2 — the same category as basic lane-centering and adaptive cruise control. The Cybercab bypassed NHTSA's 2,500-vehicle exemption cap through self-certification. The 30-vehicle Texas deployment is geofenced. FSD v14.3.3 improved eyewear detection in its Driver Monitoring System. Every Tesla vehicle sold with FSD from 2016 through early 2024 carried a promise of full autonomy; the contracts for those vehicles have now been retroactively modified to include the word "Supervised." Class action suits are active in the US, China, Australia, and Europe. A Florida jury awarded $243 million to the family of a crash victim, with the plaintiff's attorney arguing the case hinged on "the gap between what Tesla has promised and what it can actually do."
 
-The pedestrian behind the truck that the ego-vehicle cannot see is in the present.
+The structural observation is counterintuitive: **China and the United States are certifying the same hardware confidence claim at different regulatory thresholds.** Chinese regulators are willing to certify commercial L3 on chips whose inference convergence is still a software assertion. US regulators are not — and the "Supervised" qualifier in Tesla's product name is the legal expression of that unwillingness. Neither regulatory posture resolves the underlying engineering question. China's L3 commercial certification on a software confidence score is the same bet as Tesla's FSD at 86% floating-point confidence. The difference is that China's regulator accepted the bet; America's did not.
 
-At 25% V2X market penetration, published research transitions the risk profile of urban traffic from "serious traffic accidents" to "residual hypothetical risk." Tesla's current architecture is unaffected by that threshold. The Cybercab operating in Austin is not receiving CPMs. It is not transmitting them. It sees what its own cameras see, infers what its own neural network can reach, and asks its driver — when there is one — to settle what the network cannot certify.
-
-The D3 chip forces the φ-equilibrium to its individual extreme not by design choice but by physics. There is no V2X network in low Earth orbit. The signal delay to a ground control station on Mars is eight light-minutes. At orbital scale, the collective fallback does not exist. The individual allocation is 100% by necessity. This is not a suboptimal design. It is the hardest possible version of the problem — and it is the problem for which a hardware settlement primitive is not optional but categorical.
+The settlement gap is not a regulatory artifact. It is the gap between a software confidence score that varies with die temperature and a hardware signal that says *converged* in silicon, deterministically, before the action commits. That gap is open in both jurisdictions. Both countries are driving through it.
 
 ---
 
-## The Unified Constraint
+## The Bandwidth Wall: Solved and Unsolved
 
-In 2026, the automotive AI industry independently arrived at a metric that the orbital constraint had always implied: **TOPS per watt is the defining measure of a chip's real-world deployability.** IBM found that a 20% improvement in inference efficiency produces a 3–5% increase in EV range. Mobileye targets passive air cooling — under 50 watts — for its automotive ASICs. The consumer device industry's neuromorphic research (NeuEdge, arXiv:2602.02439, February 2026) demonstrated sub-1-watt spiking neural network inference deployable at the edge.
+HW3's 48 GB/s bandwidth was the specification that Tesla froze in 2019. The neural network grew. The bandwidth did not. Musk stated the conclusion on an earnings call on April 22, 2026: "Memory bandwidth is one of the key elements needed for Unsupervised FSD." Seven million vehicles. Up to $15,000 per FSD package. Specification frozen wrong.
 
-The orbital constraint said the same thing in different units: 100 kilowatts per ton, maximum, for any compute payload in low Earth orbit. At 2,700 watts per GPU (NVIDIA Blackwell), that is 37 units per metric ton. The automotive world arrived at this constraint from range anxiety. The orbital world arrived at it from launch economics. They are the same constraint. The arithmetic that resolves it is the same arithmetic.
+BYD's Xuanji A3 at 273 GB/s addresses this directly. The chip ships at more than five times HW3's bandwidth, with a self-developed bus architecture designed to reduce internal latency — a bandwidth problem solved at the silicon level, not deferred. NIO's Shenji chip, Li Auto's Mach 100, and Huawei's supply-chain partners have all moved to advanced nodes (4nm, 5nm) that bring higher bandwidth as a structural property of the process.
 
-What neither world has yet built is the component that converts efficiency into certified autonomy: a signal, generated in silicon, that says *converged* — before the action commits, not after the evidence arrives. The HW3 specification lock cost Tesla seven years and the trust of millions of owners. The AI5 design concession cost — whatever was traded for a 45-day acceleration to tape-out — is still undisclosed. The D3 specification lock, if it closes on floating-point matmul by default, will cost SpaceX the same thing HW3 cost Tesla: a fleet of hardware deployed on the wrong arithmetic, discovered too late to correct without a trade-in program that cannot reach orbit.
+But here is what the bandwidth comparison obscures: **memory bandwidth determines whether the inference pipeline can run. It does not determine whether the result converges.** HW3's bandwidth was insufficient to run FSD v14. That is a pipeline feasibility problem. AI4's bandwidth is sufficient to run FSD v14. The result is still a floating-point confidence score. The score at 86% on a rainy intersection at 11pm still has the same architectural property as the score at 86% on a clear highway at noon: it is a floating-point output of a floating-point network on a die whose intermediate arithmetic varies with temperature. Bandwidth solved the pipeline. It did not touch the settlement.
 
----
-
-## State of the Art
-
-| Paper | Venue | Finding |
-|---|---|---|
-| *NeuEdge* | arXiv:2602.02439, Feb 2026 | Adaptive spiking neural network + hardware-aware optimization; sub-1 W edge inference; 4.7× efficiency gain over FP baseline |
-| *Safe-NEureka* | arXiv:2602.04803, Feb 2026 | Hybrid modular redundant DNN for RISC-V guidance, navigation, and control; 24-cycle hardware fault recovery |
-| *CARMEN* | arXiv:2605.06878, May 2026 | CORDIC-for-AI: 4.83 TOPS/mm², 11.67 TOPS/W at 28 nm CMOS; confirmed ASIC-viable at production scale |
-| *SYCore* | arXiv:2503.11685, Mar 2025 | Systolic CORDIC engine: 4.64× throughput gain, 5.02× power reduction over multiplier-based baseline |
-| *L-GATr* | NeurIPS 2024, arXiv:2405.14806 | Lorentz-equivariant Geometric Algebra Transformer; state-of-the-art on LHC particle physics reconstruction |
-| *HELM* | NeurIPS 2025, arXiv:2505.24722 | Billion-parameter hyperbolic large language model; 4% MMLU and ARC gain over Euclidean architecture at equivalent scale |
-| *ILNN* | ICLR 2026, arXiv:2602.23981 | Fully intrinsic Lorentz neural network; eliminates all mixed Euclidean operations from the inference path |
-| *Fast Lorentz NNs* | arXiv:2601.21529, Jan 2026 | Norm degradation proof + fix; distance-to-hyperplane computation reduces to two native CORDIC operations |
-| Bérczi & Kiem | arXiv:2605.29151, 2026 | CORDIC rotation iterations are isomorphic to forgetting maps on M̄₀,ₙ — the compactified moduli space of n-pointed stable rational curves |
-
-**The research frontier is converging from three independent directions toward the same arithmetic primitive.** NeuEdge arrives from consumer neuromorphic devices. CARMEN and SYCore arrive from automotive ASIC efficiency constraints. L-GATr, HELM, and ILNN arrive from geometric deep learning in high-energy physics. Bérczi–Kiem arrives from pure mathematics. None of these groups was coordinating. All of them found the same architecture.
-
-The automotive industry found TOPS/W. The orbital industry found kW/ton. The neuromorphic industry found sub-watt inference. The geometric algebra community found Lorentz-native computation. The mathematical community found that CORDIC iterations are, at their deepest level, a statement about moduli spaces of rational curves. These are the same statement. The altitude is different. The arithmetic is identical.
+China solved Axis 1. China also faces the same Axis 3.
 
 ---
 
-## Open Problems
+## The Control Authority Signature, Globally
 
-| Problem | Status, June 4, 2026 |
+The control authority failure pattern identified across Tesla's Optimus demonstrations and SpaceX's Starship Flight 12 — correct high-level command, failed low-level sequencing — is not an American phenomenon.
+
+Autonomous driving demonstrations globally rely on a version of the same fallback. Teleoperated demos, supervised test rides, geofenced deployments, fleet monitors in control rooms: all of these are the same architectural response. The high-level command is placed correctly (navigate to the destination; execute the highway merge; fetch the object from the shelf). The low-level sequencing — the chain of committed micro-actions that must each converge before the next begins — is where the supervised fallback closes the loop.
+
+BYD's Full Damage Coverage is an insurance instrument that closes the financial loop around the settlement gap. It says: when the system fails at the sequencing layer, BYD will pay. It does not say: when the system commits, the commitment is certified. These are different claims. The first is a liability backstop. The second is a hardware fact. The automotive industry has built sophisticated liability backstops. No one has yet built the hardware fact.
+
+---
+
+## The D3 Orbital Extremum: Where Every Axis Converges
+
+The SpaceX S-1 (SEC File No. 333-296070) filed May 20, 2026 names the D3 chip for orbital data centers. Intel 18A process node. Arithmetic substrate: undisclosed. One million orbital compute satellites: FCC filing of record, January 28, 2026.
+
+At orbital scale, the comparative landscape above collapses to its limiting case. There is no V2X in low Earth orbit — no collective perception, no infrastructure data, no neighboring-vehicle CPMs. The φ-equilibrium's 38% collective allocation is physically impossible. The individual allocation is 100% not by design but by physics. Ground control settles the guidance loop at 8-light-minute delay to Mars: the human fallback exists, but it exists in a different time zone of physics. The orbital chip must self-certify convergence before committing a burn that changes a trajectory it cannot reverse.
+
+Intel's 18A standard cell library is optimized for FP16/BF16 floating-point matmul — the data center workload that justifies Intel's foundry capital expenditure. The D3 chip's arithmetic substrate defaults to whatever Intel's 18A fabricates most efficiently. If SpaceX's orbital chip team does not explicitly specify convergence-native arithmetic in the D3 design brief, the process will deliver a high-performance floating-point inference chip. That chip will accept the orbital power budget's 100 kW/ton limit and fail it — for the same structural reason HW3 accepted the 48 GB/s bandwidth limit and failed it. The specification lock that retired HW3 in 2019 is closing on the D3 in Q4 2026. The wall is the same wall. The altitude is different.
+
+The Terafab facility — Intel builds, Tesla and SpaceX anchor demand — confirms this. Electrek's April 7, 2026 analysis: "Terafab is a capacity deal dressed up as a Tesla moonshot." Intel provides process technology, equipment, and packaging. Tesla and SpaceX provide demand and capital. Intel's standard cell library is the default arithmetic substrate. Custom implementations require explicit design choices. The default path is the wrong path.
+
+---
+
+## Global State of the Art
+
+### China — Automotive Silicon, June 2026
+
+| Chip | OEM | Node | Key Specification | L3/L4 Status | Convergence primitive |
+|---|---|---|---|---|---|
+| **Xuanji A3** | BYD | 4 nm | 700 TOPS/chip; 273 GB/s; ASIL-D; 3-core NPU, 16-core CPU; 20% power reduction; in mass production | L3/L4 native; Full Damage Coverage insurance backing | None — ASIL-D is safety boundary, not settlement signal |
+| **Shenji NX9031** | NIO | 5 nm | Applied across NIO and Onvo fleet; world model deployed May 2025 | L2+ with world model refinement | None |
+| **Mach 100** | Li Auto | 5 nm | 1,280 TOPS; MindVLA-01 integration; data-stream native architecture | L3 target Q2 2026 | None |
+| **Turing AI** | Xpeng | 7 nm | ~750 TOPS; cockpit + AD unified | L3 target 2026–2027 | None |
+| **Qiankun ADS 4/5** | Huawei (supply) | Not disclosed | 10B+ km training; WEWA framework; 18B yuan 2026 investment; 25 brands, 50+ models | L3 highway Q4 2026; L4 urban pilot | None — WEWA structures the boundary, does not certify it |
+
+### Global Research Frontier, June 2026
+
+| Paper | Venue | Key Result | Axis addressed |
+|---|---|---|---|
+| **V2X-UniPool** | arXiv:2506.02580, Jun 2026 | Unified multimodal V2X + RAG-based knowledge reasoning; 99.9% transmission cost reduction; zero-shot models reach SOTA via V2X | φ-equilibrium (Axis 3 collective boundary) |
+| **NeuEdge** | arXiv:2602.02439, Feb 2026 | Adaptive SNN + hardware-aware optimization; sub-1 W edge inference; 4.7× efficiency gain | Axis 1 (power/bandwidth) |
+| **Safe-NEureka** | arXiv:2602.04803, Feb 2026 | Hybrid modular redundant DNN for RISC-V GNC; 24-cycle hardware fault recovery | Axis 2 (radiation / safety) |
+| **CARMEN** | arXiv:2605.06878, May 2026 | CORDIC-for-AI: 4.83 TOPS/mm², 11.67 TOPS/W, 28 nm CMOS; ASIC-viable | Axis 1 (power efficiency) |
+| **SYCore** | arXiv:2503.11685, Mar 2025 | Systolic CORDIC: 4.64× throughput, 5.02× power reduction | Axis 1 (power efficiency) |
+| **L-GATr** | NeurIPS 2024, arXiv:2405.14806 | Lorentz-equivariant Geometric Algebra Transformer; SOTA on LHC | Axis 3 (geometric inference) |
+| **HELM** | NeurIPS 2025, arXiv:2505.24722 | Billion-parameter hyperbolic LLM; 4% MMLU/ARC gain | Axis 3 (geometric inference) |
+| **ILNN** | ICLR 2026, arXiv:2602.23981 | Fully intrinsic Lorentz architecture; eliminates mixed Euclidean operations | Axis 3 (geometric inference) |
+| **Fast Lorentz NNs** | arXiv:2601.21529, Jan 2026 | Norm degradation fix; distance-to-hyperplane = 2 CORDIC operations | Axis 3 (geometric inference) |
+| **Bérczi & Kiem** | arXiv:2605.29151, 2026 | CORDIC iterations isomorphic to M̄₀,ₙ forgetting maps; deepest structural grounding for orbital CORDIC | Axis 3 (mathematical foundation) |
+
+**V2X-UniPool** is the most structurally significant new entry. It resolves the transmission cost problem that made real-time collective perception impractical and enables zero-shot models — models with no prior exposure to a given intersection, weather condition, or traffic configuration — to achieve state-of-the-art motion planning by drawing on V2X-extended scene context. This is the col(F)/ker(F) boundary extended in real time through infrastructure, not deferred to a training cycle. It is the research instantiation of the φ-equilibrium's 38% collective allocation, made computationally feasible.
+
+The tripartite research convergence is now quadripartite: **China's automotive silicon industry** (BYD, NIO, Li Auto, Xpeng) is converging on the bandwidth and power efficiency axes from the consumer manufacturing direction, joining the neuromorphic computing community (NeuEdge), the automotive ASIC community (CARMEN, SYCore), and the geometric deep learning community (L-GATr, HELM, ILNN) in approaching the same architectural conclusion from four independent directions.
+
+The convergence axis remains open in all four directions.
+
+---
+
+## The Three-Axis Audit — Global, June 4, 2026
+
+| Chip | Axis 1 (Bandwidth / Power) | Axis 2 (Safety / Radiation) | Axis 3 (Convergence-native) | Verdict |
+|---|---|---|---|---|
+| HW3 (Tesla, 2019) | **FAIL** — 48 GB/s; 1/8 of HW4 | Partial — no ASIL-D disclosed | **FAIL** | Abandoned |
+| AI4 (Tesla, 2023) | **PASS** — 384 GB/s, 160 W | Partial | **FAIL** | Supervised only |
+| AI5 (Tesla, 2026) | **FAIL** — 700–800 W exceeds vehicle thermal | Partial | **FAIL** | Not in vehicles |
+| Xuanji A3 (BYD, 2026) | **PASS** — 273 GB/s, 20% power reduction, mass production | **PASS** — ASIL-D, highest automotive grade | **FAIL** — ASIL-D ≠ convergence oracle | L3/L4 claim, software settlement only |
+| Qiankun ADS 4 (Huawei supply) | Not disclosed | Not disclosed | **FAIL** — WEWA structures boundary, does not certify it | L3 highway Q4 2026, regulatory accepted |
+| Drive Thor (NVIDIA) | Not disclosed; high power | No | **FAIL** | Supply only; supervised |
+| D3 (SpaceX, Intel 18A) | **RISK** — Intel 18A default = FP16, likely fails orbital 100 kW/ton | **ANNOUNCED** — orbital hardening intended | **FAIL** — not specified | 0 fabricated; specification lock closing |
+| Orbital CORDIC (proposed) | **PASS** — multiplier-free primary; sub-watt | **PASS** — CORDIC TMR is deterministic | **PASS** — Contraction Monitor emits CONVERGED in hardware | 0 fabricated |
+
+The audit is global. The verdict is consistent. Every commercial chip in production or near-production fails Axis 3. The settlement gap is not a Tesla problem. It is not a China problem. It is not a SpaceX problem. It is a hardware primitive that the global semiconductor industry has not yet fabricated.
+
+---
+
+## Six Falsifiable Predictions
+
+**1.** FSD Unsupervised will not achieve consumer scale on AI4 without an architectural addition that functions as a hardware settlement primitive — regardless of software improvements to the confidence score system. BYD's Full Damage Coverage and China's L3 regulatory approval do not change this prediction; they instantiate the same bet at a different regulatory acceptance threshold.
+
+**2.** The D3 chip will fail the orbital power budget axis unless its design brief explicitly specifies a non-FP16 arithmetic substrate. Intel 18A's default optimization target is FP16/BF16 matmul. The specification lock that retired HW3 in 2019 is the exact lock now closing on D3.
+
+**3.** The FAA Flight 12 root-cause, when published, will implicate the sequencing layer — consistent with a control authority failure rather than a single propulsion hardware defect. Multiple simultaneous engine failures following a successful rotation maneuver are structurally inconsistent with a single-component mechanical defect.
+
+**4.** Tesla's V2X non-participation will be identified as a first-order safety and competitive gap within 24 months. V2X-UniPool's 99.9% transmission cost reduction removes the principal technical objection to real-time collective perception. China's national infrastructure deployment creates competitive pressure from the φ-equilibrium optimum that Tesla's 100% individual architecture cannot reach.
+
+**5.** BYD's Full Damage Coverage will produce a formal insurance renegotiation or coverage restriction within 36 months as the statistical tail risk of L3/L4 operation on a software confidence score — not a hardware settlement signal — accumulates at scale. The insurance policy is a financial claim on a hardware property that does not yet exist.
+
+**6.** Huawei's WEWA framework — the only major production architecture that explicitly separates the world-model and action-planning layers — will be the first commercial platform to identify the correct location for a hardware settlement primitive and to specify, even if not to fabricate, the convergence oracle at that boundary.
+
+---
+
+## Open Problems — Global, June 4, 2026
+
+| Problem | Status |
 |---|---|
-| D3 chip arithmetic substrate | Named in SEC filing. Intel 18A. **Arithmetic undisclosed.** |
-| AI5 design concessions | Acknowledged publicly. **Substance undisclosed.** |
-| FAA Flight 12 root cause | **Investigation open.** GNC compute architecture not yet excluded. |
-| Terafab Intel 18A ramp | Ramp problems reported. D3 timeline contingent on resolution. |
-| Optimus autonomous operation | **Autonomy metrics undisclosed.** |
-| FSD Unsupervised at consumer scale | ~20 vehicles, 3 Texas cities. Geographic limit unannounced. |
-| Hardware convergence oracle in silicon | **Not fabricated.** |
-| HW3 microfactory retrofit program | Announced on earnings call. **No timeline. No cost structure. No eligibility.** |
-| Bit-exact hyperbolic TMR | **Not demonstrated.** |
-| NeuEdge + convergence oracle integration | Open research problem. |
-| Mengzhou-1 orbital test (China) | Scheduled 2026. |
+| D3 chip arithmetic substrate | Intel 18A; **arithmetic undisclosed** |
+| AI5 design concessions | Acknowledged; **substance undisclosed** |
+| FAA Flight 12 root-cause | **Investigation open** |
+| BYD Xuanji A3 convergence guarantee | **ASIL-D certified, settlement gap unaddressed** |
+| Huawei WEWA convergence boundary | **Structured but not hardware-certified** |
+| V2X-UniPool production deployment | **Research; no OEM deployment confirmed** |
+| China L3 commercial certification standard | **Regulatory framework advancing; convergence criterion not specified** |
+| FSD Unsupervised at consumer scale | ~20 vehicles, 3 cities; geographically limited |
+| Hardware convergence oracle in silicon | **Not fabricated — globally** |
+| Bit-exact hyperbolic TMR | **Not demonstrated** |
+| CORDIC-Getzler O(n log n) | **Not implemented** |
+| NeuEdge + convergence oracle integration | Open research problem |
+| Mengzhou-1 orbital test | Scheduled 2026 |
+| Terafab Intel 18A ramp | Ramp problems; D3 timeline contingent |
 
 ---
 
 ## Imminent Triggers
 
-The SPCX IPO prices June 11 and trades June 12 on Nasdaq. The D3 chip's arithmetic substrate is the most consequential undisclosed fact in the current orbital hardware landscape — not because it determines SpaceX's financial outcome, but because it determines whether the specification lock closes on the wrong arithmetic before the case for the correct one is complete.
+**June 11–12:** SPCX IPO pricing and trading debut. D3 arithmetic substrate may be disclosed in post-IPO investor materials. The most consequential undisclosed specification in current orbital hardware.
 
-The FAA Flight 12 root-cause publication is the second trigger. If the investigation attributes the boostback sequencing failure to a control authority or sequencing gap in the GNC compute chain, it opens a procurement conversation that no theoretical argument has been able to open. That publication date is the most important single event on the orbital hardware timeline.
+**Q4 2026:** Huawei ADS 4 targets commercial highway L3 deployment. This will be the first large-scale public data on whether a software confidence score, accepted by regulators, is actuarially sound at highway L3 without a hardware settlement signal.
 
-Tesla's FSD v15 architecture, AI4+ volume deployment, and the HW4.1 chip design completion all sit in the 30–60 day window. None of them changes the convergence gap. All of them add new layers of evidence about which kind of hardware Tesla will bring to the qualification problem.
+**Late 2026:** BYD God's Eye 5.0 OTA update. The system now carries insurance backing. The claims data from this deployment, when it becomes available, will be the first real-world financial audit of a software-confidence-score-based autonomy claim at commercial scale.
 
----
+**Late 2026:** FAA Flight 12 root-cause publication. GNC compute architecture not yet excluded as contributing factor.
 
-## The Bet
-
-Between 2016 and early 2024, Tesla sold a product called "Full Self-Driving Capability" to hundreds of thousands of owners at up to $15,000 per vehicle. The product promised, in plain language, that the hardware was already present and that software updates would complete it. This promise was placed on chips — first HW1, then HW2, then HW3 — whose bandwidth, arithmetic, and convergence properties were not adequate to the promise. The owners were patient. The software improved. The hardware could not follow.
-
-What Tesla discovered, across seven years and three hardware generations, is that there is a difference between a system that drives very well most of the time and a system that can certify its own driving before it commits to an irrevocable action. The first is a remarkable engineering achievement. The second is a different kind of problem.
-
-The difference between those two problems is exactly one component: something in silicon that says, before the merge, before the burn, before the arm reaches for the object on the shelf — *this has converged. Commit.* Not a floating-point confidence score that varies with temperature. A hardware fact.
-
-The Cybercab has no steering wheel. Its passenger sits where the wheel was and trusts a number. The D3 chip will go to orbit with no ground control within signal delay. Its guidance system will bet on its own inference with no human eight light-minutes away fast enough to settle.
-
-Oliver Abcarius found a dead link where his contract used to be. The contract had been changed. The hardware had always known.
-
-The driver is the chip.
-
-The chip does not exist yet.
+**Late 2026:** Mengzhou-1 uncrewed orbital test — China's GNC precision validation at orbital scale, the same convergence problem at the same altitude where the D3 will eventually operate.
 
 ---
 
 ## Primary Sources
 
-| Source | Date | Disclosure |
+| Source | Date | Key Disclosure |
 |---|---|---|
-| SpaceX Form S-1, SEC No. 333-296070 | May 20 / June 1, 2026 | Orbital AI compute thesis; D3 chip; 1,000,000-satellite FCC filing; $75B raise at $135/share |
-| Musk, Tesla Q1 2026 Earnings Call | April 22, 2026 | "Memory bandwidth is one of the key elements needed for Unsupervised FSD"; HW3 abandoned |
+| SpaceX Form S-1, SEC No. 333-296070 | May 20 / June 1, 2026 | D3 chip; orbital AI compute thesis; 1,000,000 satellite FCC filing; $75B raise |
+| BYD Intelligence Strategy Launch | May 28, 2026 | Xuanji A3: 4nm, 2,100 TOPS (×3), 273 GB/s, ASIL-D, mass production; Full Damage Coverage |
+| Huawei Auto China 2026 | April 24, 2026 | 18B yuan 2026 investment; 10B km accumulated; ADS 4 roadmap; WEWA framework |
+| Musk, Tesla Q1 2026 Earnings Call | April 22, 2026 | "Memory bandwidth is the choke point"; HW3 abandoned; AI4 sufficient |
 | Tesla AI hardware team, X | April 15, 2026 | AI5 taped out; "several design concessions to move fast" |
-| Electrek investigation | June 3, 2026 | Tesla retroactively modified FSD purchase agreements; original contracts becoming inaccessible |
-| *TheStreet* | April 25, 2026 | Multiple class action suits filed by HW3 owners in US, China, Australia, Europe |
-| FAA, Flight 12 Mishap Investigation | Opened May 27, 2026 | Propulsion / guidance / flight-control — root cause open |
-| FAA, Starfall ROD | May 29, 2026 | 1,000 kg reentry vehicle approved; mass-producible; "self-sustaining in-space manufacturing market" |
-| Electrek / Tesla confirmation | April 15, 2026 | Cybercab to launch on AI4 hardware; AI5 volume not available until mid-2027 |
-| *The Wall Street Journal* | May 2026 | Wedbush: Tesla-SpaceX merger by 2027; SpaceX IPO roadshow coverage; "Tesla" appears 87 times in SPCX S-1 |
-| IBM Research | 2026 | 20% inference efficiency gain = 3–5% EV range increase |
-| Terafab / Intel confirmation | April 7, 2026 | Intel builds; Tesla/SpaceX anchor demand; 18A ramp problems acknowledged |
-| Small claims court ruling | May 22, 2026 | Tesla found to have "no meritorious defense" for HW3 FSD promise; $10,000 judgment |
-| Tesla 10-Q, Q1 2026 | Filed 2026 | Class action active in Northern District of California; EEOC civil complaint pending |
+| Electrek investigation | June 3, 2026 | Tesla retroactively modified FSD purchase agreements; $14.5B litigation exposure |
+| FAA, Starship Flight 12 Mishap | Opened May 27, 2026 | Propulsion / guidance / flight-control — root cause open |
+| V2X-UniPool (arXiv:2506.02580) | June 2026 | 99.9% V2X transmission cost reduction; zero-shot ego models reach SOTA via V2X context |
+| Electrek | April 7, 2026 | "Terafab is a capacity deal dressed up as a Tesla moonshot"; Intel 18A ramp problems |
+| IBM Research | 2026 | 20% inference efficiency = 3–5% EV range — same constraint axis as BYD's 20% reduction claim |
+| South China Morning Post | April 24, 2026 | Huawei 18B yuan; "more than combined expense of all other major AD solution providers" |
+| Wall Street Journal | May 2026 | Wedbush: Tesla-SpaceX merger thesis; "Tesla" appears 87 times in SPCX S-1 |
+| FAA, Starfall ROD | May 29, 2026 | Reentry vehicle approved; self-sustaining in-space manufacturing market |
+| *TheStreet* | April 25, 2026 | Class action suits in US, China, Australia, Europe; $243M Florida jury verdict |
 
 ---
 
-*Part of the ERIE corpus: ERIE — VISION · ERIE — TESLA · The Convergence Oracle · Zero Deployable Units · The Specification Lock · Integrate, Activate, Converge*
+*Part of the ERIE corpus: ERIE — VISION · ERIE — TESLA · The Settlement Gap · The Convergence Oracle · Zero Deployable Units · The Specification Lock · Integrate, Activate, Converge*
 
-**ERI Labs — June 4, 2026.** All cited research from primary arXiv, conference, SEC, FAA, and earnings call sources. FPGA measurements on physical hardware.
+**ERI Labs — June 4, 2026.** Primary sources: SEC filings, earnings call transcripts, product launch documentation, FAA regulatory records, and arXiv preprints dated through June 4, 2026.
 
 ---
 
 ```
 The driver watches the road.
-The driver is the chip that does not exist yet.
+China's driver is watching ten billion kilometers.
+The driver is still the chip.
+The chip does not exist yet.
 
-HW3 owners paid fifteen thousand dollars
-for a specification frozen in 2019.
-The specification was frozen wrong.
-The lock is called a trade-in program.
+BYD put money on ASIL-D.
+ASIL-D certifies the failure is safe.
+It does not certify the inference converged.
+The insurance is not the oracle.
+The oracle is still missing.
 
-AI5 taped out 45 days early.
-The concessions are undisclosed.
-The arithmetic is still liquid
-inside a chip no one can yet open.
-
-The Cybercab has no steering wheel.
-The Cybercab runs AI4.
-The passenger sits where the wheel was
-and trusts a confidence score
-computed in floating-point
-that varies with the temperature of the die.
+Huawei spent eighteen billion yuan
+on the space between the world model
+and the action.
+The space is exactly right.
+The signal that lives there
+has not been fabricated.
 
 Seven hundred watts cannot fit in a car.
 One hundred kilowatts cannot fit in a ton.
-The arithmetic that fits in both
-is a shift.
-A shift is a wire.
-A wire does not heat.
+273 gigabytes per second
+can carry the model.
+None of it settles the bet.
 
 The car is supervised.
+The highway is Level 3.
 The satellite has no driver.
 The satellite has a deadline.
+The bet is the same bet.
+The altitude is different.
+The settlement gap
+is the same gap.
 ```
